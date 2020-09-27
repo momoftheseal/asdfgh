@@ -1,0 +1,77 @@
+import pygame as pg
+from pygame.draw import *
+pg.init()
+sc = pg.display.set_mode((1100, 700))
+
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+LGRAY = (125, 125, 125)
+GRAY = (80, 80, 80)
+LBLUE = (64, 128, 255)
+GREEN = (0, 200, 64)
+YELLOW = (225, 225, 0)
+PINK = (230, 50, 230)
+RED = (255, 0, 0)
+GOVNO = (152, 118, 84)
+
+def grib(x, y, a):
+    pg.draw.ellipse(sc, WHITE, (x, y, a, 4*a))
+    pg.draw.ellipse(sc, RED, (x-3*a/2, y-a, 4*a, 2*a))
+    pg.draw.circle(sc, WHITE, (x-a+8, y-6), 5)
+    pg.draw.circle(sc, WHITE, (x-a+30, y-13), 3)
+    pg.draw.circle(sc, WHITE, (x-a+22, y-12), 4)
+
+def igls(q, w, l):
+    pg.draw.polygon(sc, GRAY, ((q, w), (q+2*l, w), (q+l, w-10*l)))
+
+def iozh(z, v, c):
+    pg.draw.ellipse(sc, LGRAY, (z, v, 30*c, 20*c))
+    pg.draw.ellipse(sc, LGRAY, (z+27*c, v+8*c, 10*c, 7*c))
+    pg.draw.ellipse(sc, LGRAY, (z+5*c, v+16*c, 5*c, 5*c))
+    pg.draw.ellipse(sc, LGRAY, (z+25*c, v+16*c, 5*c, 5*c))
+    grib(z+10*c, v, 3*c)
+    igls(z+6*c, v+5*c, 1.5*c)
+    igls(z+12*c, v+5*c, 1.5*c)
+    igls(z+18*c, v+5*c, 1.5*c)
+    igls(z+24*c, v+5*c, 1.5*c)
+    igls(z+3*c, v+10*c, 1.5*c)
+    grib(z+20*c, v+2*c, 3*c)
+    igls(z+9*c, v+10*c, 1.5*c)
+    igls(z+15*c, v+10*c, 1.5*c)
+    igls(z+21*c, v+10*c, 1.5*c)
+    pg.draw.circle(sc, RED, (z+18*c, v+13*c), 5*c)
+    igls(z+27*c, v+10*c, 1.5*c)
+    igls(z+6*c, v+15*c, 1.5*c)
+    igls(z+12*c, v+15*c, 1.5*c)
+    igls(z+18*c, v+15*c, 1.5*c)
+    igls(z+24*c, v+15*c, 1.5*c)
+    pg.draw.circle(sc, BLACK, (z+34*c, v+10*c), c)
+     
+pg.draw.polygon(sc, GREEN, ((0, 0), (1100, 0), (1100, 700), (0, 700)))
+pg.draw.polygon(sc, GOVNO, ((0, 300), (1100, 300), (1100, 700), (0, 700)))
+pg.draw.polygon(sc, YELLOW, ((950, 0), (950, 350), (1050, 350), (1050, 0)))
+pg.draw.polygon(sc, YELLOW, ((650, 0), (650, 400), (750, 400), (750, 0)))
+iozh(350, 300, 4)
+iozh(950, 250, 4)
+iozh(800, 450, 7)
+iozh(-100, 550, 6)
+pg.draw.polygon(sc, YELLOW, ((200, 650), (400, 650), (400, 0), (200, 0)))
+pg.draw.polygon(sc, YELLOW, ((0, 400), (150, 400), (150, 0), (0, 0)))
+grib(1000, 640, 21)
+grib(925, 640, 25)
+grib(750, 640, 17)
+grib(650, 640, 20)
+grib(550, 640, 15)
+
+pg.display.update()
+ 
+clock = pg.time.Clock()
+finished = False
+
+while not finished:
+    clock.tick(10)
+    for event in pg.event.get():
+        if event.type == pg.QUIT:
+            finished = True
+
+pg.quit()
